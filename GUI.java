@@ -34,8 +34,6 @@ public class GUI extends javax.swing.JFrame {
         plankType = new javax.swing.JComboBox();
         start = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24));
         jLabel1.setText("[SPX] AIO Planker");
 

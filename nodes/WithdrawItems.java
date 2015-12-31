@@ -33,7 +33,7 @@ public class WithdrawItems extends Node {
 
     public void withdrawItems() {
         if (Banking.find(vars.logType).length > 0) {
-            if (Banking.withdraw(0, vars.logType)) {
+            if (Banking.withdraw(27, vars.logType)) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {

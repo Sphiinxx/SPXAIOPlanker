@@ -13,6 +13,7 @@ import java.net.URL;
  */
 public class Constants {
 
+    public static final Color MOUSE_COLOR = new Color(222, 0, 0);
     public static final Color COLOR1 = new Color(0, 169, 194);
     public static final Color COLOR2 = new Color(255, 255, 255);
     public static final Font FONT1 = new Font("Segoe Script", 0, 20);
