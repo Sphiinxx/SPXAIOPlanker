@@ -67,7 +67,7 @@ public class DepositItems extends Node {
 
     @Override
     public boolean validate() {
-        return Inventory.getCount(vars.logType) <= 0;
+        return Inventory.getCount(vars.plankType) > 0;
     }
 
 }

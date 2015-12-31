@@ -8,6 +8,8 @@ public class Variables {
     public int interfaceChild;
     public int coinsAmount;
     public int planksMade;
+    public int currentPlankPrice;
+    public int plankTypeId;
     public double version;
     public boolean guiComplete;
     public boolean stopScript;

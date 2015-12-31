@@ -73,7 +73,7 @@ public class BuyPlanks extends Node {
     @Override
     public boolean validate() {
 
-        return Constants.SAWMILL_AREA.contains(Player.getPosition()) && Inventory.getCount(vars.logType) > 0 && Inventory.getCount("Coins") >= 100;
+        return Constants.SAWMILL_AREA.contains(Player.getPosition()) && Inventory.getCount(vars.logType) > 0  && Inventory.getCount(vars.plankType) <= 0  && Inventory.getCount("Coins") >= 5000;
     }
 
 }

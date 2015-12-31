@@ -32,21 +32,7 @@ public class WithdrawItems extends Node {
     }
 
     public void withdrawItems() {
-        if (Banking.find(vars.logType).length > 0) {
-            if (Banking.withdraw(27, vars.logType)) {
-                Timing.waitCondition(new Condition() {
-                    @Override
-                    public boolean active() {
-                        return Inventory.getCount(vars.logType) > 0;
-                    }
-                }, General.random(750, 1000));
-            }
-        } else {
-            General.println("We could not find any " + vars.logType);
-            General.println("Stopping Script...");
-            vars.stopScript = true;
-        }
-        if (Inventory.getCount("Coins") < 5000) {
+        if (Inventory.getCount("Coins") <= 5000) {
             if (Banking.find("Coins").length > 0) {
                 if (Banking.withdraw(vars.coinsAmount, "Coins")) {
                     Timing.waitCondition(new Condition() {
@@ -61,6 +47,20 @@ public class WithdrawItems extends Node {
                 General.println("Stopping Script...");
                 vars.stopScript = true;
             }
+        }
+        if (Banking.find(vars.logType).length > 0) {
+            if (Banking.withdraw(27, vars.logType)) {
+                Timing.waitCondition(new Condition() {
+                    @Override
+                    public boolean active() {
+                        return Inventory.getCount(vars.logType) > 0;
+                    }
+                }, General.random(750, 1000));
+            }
+        } else {
+            General.println("We could not find any " + vars.logType);
+            General.println("Stopping Script...");
+            vars.stopScript = true;
         }
     }
 
@@ -93,7 +93,7 @@ public class WithdrawItems extends Node {
 
     @Override
     public boolean validate() {
-        return Inventory.getCount(vars.plankType) <= 0 && Inventory.getCount(vars.logType) <= 0 || Inventory.getCount("Coins") <= 0;
+        return !Inventory.isFull() && Inventory.getCount(vars.logType) < 27 && Inventory.getCount(vars.plankType) <= 0;
     }
 
 }

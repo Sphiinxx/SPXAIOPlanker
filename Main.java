@@ -32,6 +32,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
     @Override
     public void run() {
         initializeGui();
+        getPrices();
         Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new WalkToSawmill(variables), new BuyPlanks(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
@@ -67,12 +68,19 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         while (!variables.guiComplete);
     }
 
+    public void getPrices() {
+        variables.currentPlankPrice = PriceChecker.getOSbuddyPrice(variables.plankTypeId);
+    }
+
     public void onPaint(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
         g.setRenderingHints(Constants.ANTIALIASING);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            long timeRan = System.currentTimeMillis() - scripts.SPXCowKiller.Constants.startTime;
+            int profit = variables.planksMade * variables.currentPlankPrice;
+
+            long profitHr = (long) (profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
+            long timeRan = System.currentTimeMillis() - Constants.START_TIME;
             long planksHr = (long) (variables.planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
 
             g.drawImage(Constants.IMG1, 2, 200, null);
@@ -84,7 +92,8 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
             g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);
             g.drawString("Planks Made: " + variables.planksMade, 11, 272);
             g.drawString("Planks/Hr: " + planksHr, 11, 292);
-            g.drawString("Status: " + variables.status, 11, 312);
+            g.drawString("Profit/Hr: " + profitHr, 11, 312);
+            g.drawString("Status: " + variables.status, 11, 330);
             g.drawString("v" + variables.version, 205, 330);
         }
     }
