@@ -1,7 +1,7 @@
 package scripts.SPXAIOPlanker.nodes;
 
 import org.tribot.api2007.Inventory;
-import org.tribot.api2007.Player;
+import org.tribot.api2007.NPCs;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXAIOPlanker.Constants;
 import scripts.SPXAIOPlanker.Variables;
@@ -28,7 +28,8 @@ public class WalkToSawmill extends Node {
 
     @Override
     public boolean validate() {
-        return !Constants.SAWMILL_AREA.contains(Player.getPosition()) && Inventory.getCount(vars.logType) > 0  && Inventory.getCount(vars.plankType) <= 0 && Inventory.getCount("Coins") >= 5000;
+        vars.operator = NPCs.find("Sawmill operator");
+        return  vars.operator.length <= 0 && Inventory.getCount(vars.logType) > 0  && Inventory.getCount(vars.plankType) <= 0 && Inventory.getCount("Coins") >= 5000;
     }
 
 }

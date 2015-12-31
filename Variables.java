@@ -1,5 +1,7 @@
 package scripts.SPXAIOPlanker;
 
+import org.tribot.api2007.types.RSNPC;
+
 /**
  * Created by Sphiinx on 12/30/2015.
  */
@@ -16,6 +18,7 @@ public class Variables {
     public String logType;
     public String plankType;
     public String status;
+    public RSNPC[] operator;
 
 }
 

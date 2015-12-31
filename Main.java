@@ -3,6 +3,7 @@ package scripts.SPXAIOPlanker;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.input.Mouse;
+import org.tribot.api.util.ABCUtil;
 import org.tribot.api2007.Login;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
@@ -10,10 +11,7 @@ import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
 import scripts.SPXAIOPlanker.api.Node;
-import scripts.SPXAIOPlanker.nodes.BuyPlanks;
-import scripts.SPXAIOPlanker.nodes.DepositItems;
-import scripts.SPXAIOPlanker.nodes.WalkToSawmill;
-import scripts.SPXAIOPlanker.nodes.WithdrawItems;
+import scripts.SPXAIOPlanker.nodes.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,12 +26,14 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
     private Variables variables = new Variables();
     private ArrayList<Node> nodes = new ArrayList<>();
     public GUI gui = new GUI(variables);
+    public static final ABCUtil AntiBan = new ABCUtil();
 
     @Override
     public void run() {
+        General.useAntiBanCompliance(true);
         initializeGui();
         getPrices();
-        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new WalkToSawmill(variables), new BuyPlanks(variables));
+        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new WalkToSawmill(variables), new BuyPlanks(variables), new AntiBan(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }
@@ -78,42 +78,44 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
             int profit = variables.planksMade * variables.currentPlankPrice;
-
             long profitHr = (long) (profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
             long timeRan = System.currentTimeMillis() - Constants.START_TIME;
             long planksHr = (long) (variables.planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
 
-            g.drawImage(Constants.IMG1, 2, 200, null);
-            g.setFont(Constants.FONT1);
-            g.setColor(Constants.COLOR1);
-            g.setFont(Constants.FONT2);
-            g.setColor(Constants.COLOR2);
-            g.drawString("- AIO Planker", 68, 226);
-            g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);
-            g.drawString("Planks Made: " + variables.planksMade, 11, 272);
-            g.drawString("Planks/Hr: " + planksHr, 11, 292);
-            g.drawString("Profit/Hr: " + profitHr, 11, 312);
-            g.drawString("Status: " + variables.status, 11, 330);
-            g.drawString("v" + variables.version, 205, 330);
+            g.setColor(Constants.BLACK_COLOR);
+            g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
+            g.setColor(Constants.RED_COLOR);
+            g.drawRoundRect(9, 218, 202, 112, 8, 8); // Red outline
+            g.fillRoundRect(13, 223, 194, 22, 8, 8); // Title background
+            g.setFont(Constants.TITLE_FONT);
+            g.setColor(Color.WHITE);
+            g.drawString("[SPX] AIO Planker", 18, 239);
+            g.setFont(Constants.TEXT_FONT);
+            g.drawString("Runtime: " + Timing.msToString(timeRan), 14, 260);
+            g.drawString("Planks Made: " + variables.planksMade, 14, 276);
+            g.drawString("Planks/Hr: " + planksHr, 14, 293);
+            g.drawString("Profit/Hr: " + profitHr, 14, 310);
+            g.drawString("Status: " + variables.status, 14, 326);
+            g.drawString("v" + variables.version, 185, 326);
         }
     }
 
     @Override
-    public void paintMouse(Graphics graphics, Point point, Point point1) {
-        graphics.setColor(Color.BLACK);
-        graphics.drawRect(Mouse.getPos().x - 13, Mouse.getPos().y - 13, 27, 27); // Square rectangle Stroke
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 1, 500); // Top y axis Line Stroke
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 1, 500); // Bottom y axis Line Stroke
-        graphics.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 1); // Right x axis line Stroke
-        graphics.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 1); // left x axis line Stroke
-        graphics.fillOval(Mouse.getPos().x - 3, Mouse.getPos().y - 3, 7, 7); // Center dot stroke
-        graphics.setColor(Constants.MOUSE_COLOR);
-        graphics.drawRect(Mouse.getPos().x - 12, Mouse.getPos().y - 12, 25, 25); // Square rectangle
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 0, 500); // Top y axis Line
-        graphics.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 0, 500); // Bottom y axis Line
-        graphics.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 0); // Right x axis line
-        graphics.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 0); // left x axis line
-        graphics.fillOval(Mouse.getPos().x - 2, Mouse.getPos().y - 2, 5, 5); // Center dot
+    public void paintMouse(Graphics g, Point point, Point point1) {
+        g.setColor(Constants.BLACK_COLOR);
+        g.drawRect(Mouse.getPos().x - 13, Mouse.getPos().y - 13, 27, 27); // Square rectangle Stroke
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 1, 500); // Top y axis Line Stroke
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 1, 500); // Bottom y axis Line Stroke
+        g.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 1); // Right x axis line Stroke
+        g.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 1); // left x axis line Stroke
+        g.fillOval(Mouse.getPos().x - 3, Mouse.getPos().y - 3, 7, 7); // Center dot stroke
+        g.setColor(Constants.RED_COLOR);
+        g.drawRect(Mouse.getPos().x - 12, Mouse.getPos().y - 12, 25, 25); // Square rectangle
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 0, 500); // Top y axis Line
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 0, 500); // Bottom y axis Line
+        g.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 0); // Right x axis line
+        g.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 0); // left x axis line
+        g.fillOval(Mouse.getPos().x - 2, Mouse.getPos().y - 2, 5, 5); // Center dot
     }
 
     @Override

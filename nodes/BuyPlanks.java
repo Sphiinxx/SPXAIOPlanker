@@ -16,7 +16,6 @@ import scripts.SPXAIOPlanker.api.Node;
  */
 public class BuyPlanks extends Node {
 
-    private RSNPC[] operator;
     private RSInterfaceChild logs;
 
     public BuyPlanks(Variables v) {
@@ -48,10 +47,9 @@ public class BuyPlanks extends Node {
     }
 
     public void talkToOperator() {
-        operator = NPCs.find("Sawmill operator");
-        if (operator.length > 0) {
-            if (operator[0].isOnScreen()) {
-                if (Clicking.click("Buy-plank", operator)) {
+        if (vars.operator.length > 0) {
+            if (vars.operator[0].isOnScreen()) {
+                if (Clicking.click("Buy-plank", vars.operator)) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
@@ -60,7 +58,8 @@ public class BuyPlanks extends Node {
                     }, General.random(750, 1000));
                 }
             } else {
-                Walking.walkTo(operator[0]);
+                Walking.walkTo(vars.operator[0]);
+                Walking.walkTo(vars.operator[0]);
             }
         }
     }
@@ -72,8 +71,8 @@ public class BuyPlanks extends Node {
 
     @Override
     public boolean validate() {
-
-        return Constants.SAWMILL_AREA.contains(Player.getPosition()) && Inventory.getCount(vars.logType) > 0  && Inventory.getCount(vars.plankType) <= 0  && Inventory.getCount("Coins") >= 5000;
+        vars.operator = NPCs.find("Sawmill operator");
+        return vars.operator.length > 0 && Inventory.getCount(vars.logType) > 0  && Inventory.getCount(vars.plankType) <= 0  && Inventory.getCount("Coins") >= 5000;
     }
 
 }
