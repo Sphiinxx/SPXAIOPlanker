@@ -77,6 +77,7 @@ public class Main extends Script implements Painting{
             g.setColor(Constants.COLOR1);
             g.setFont(Constants.FONT2);
             g.setColor(Constants.COLOR2);
+            g.drawString("- AIO Planker", 68, 226);
             g.drawString("Runtime: " + Timing.msToString(timeRan), 11, 252);
             g.drawString("Planks Made: " + variables.planksMade, 11, 272);
             g.drawString("Planks/Hr: " + planksHr, 11, 292);
