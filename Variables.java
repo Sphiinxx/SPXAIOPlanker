@@ -11,7 +11,9 @@ public class Variables {
     public int coinsAmount;
     public int planksMade;
     public int currentPlankPrice;
+    public int currentLogPrice;
     public int plankTypeId;
+    public int logTypeId;
     public double version;
     public boolean guiComplete;
     public boolean stopScript;

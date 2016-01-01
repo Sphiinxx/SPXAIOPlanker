@@ -129,24 +129,28 @@ public class GUI extends javax.swing.JFrame {
         switch(plankType.getSelectedItem().toString()) {
             case "Wood":
                 variables.logType = "Logs";
+                variables.logTypeId = 1511;
                 variables.plankType = "Plank";
                 variables.plankTypeId = 960;
                 variables.interfaceChild = 89;
                 break;
             case "Oak":
                 variables.logType = "Oak logs";
+                variables.logTypeId = 1521;
                 variables.plankType = "Oak Plank";
                 variables.plankTypeId = 8778;
                 variables.interfaceChild = 90;
                 break;
             case "Teak":
                 variables.logType = "Teak logs";
+                variables.logTypeId = 6333;
                 variables.plankType = "Teak Plank";
                 variables.plankTypeId = 8780;
                 variables.interfaceChild = 91;
                 break;
             case "Mahogany":
                 variables.logType = "Mahogany logs";
+                variables.logTypeId = 6332;
                 variables.plankType = "Mahogany Plank";
                 variables.plankTypeId = 8782;
                 variables.interfaceChild = 92;

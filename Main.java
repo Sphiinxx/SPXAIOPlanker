@@ -70,6 +70,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
 
     public void getPrices() {
         variables.currentPlankPrice = PriceChecker.getOSbuddyPrice(variables.plankTypeId);
+        variables.currentLogPrice = PriceChecker.getOSbuddyPrice(variables.logTypeId);
     }
 
     public void onPaint(Graphics g1) {
@@ -77,7 +78,8 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         g.setRenderingHints(Constants.ANTIALIASING);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            int profit = variables.planksMade * variables.currentPlankPrice;
+            int subtractLogs = variables.currentLogPrice * variables.planksMade;
+            int profit = variables.planksMade * variables.currentPlankPrice - subtractLogs;
             long profitHr = (long) (profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
             long timeRan = System.currentTimeMillis() - Constants.START_TIME;
             long planksHr = (long) (variables.planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
