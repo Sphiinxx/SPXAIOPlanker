@@ -93,7 +93,7 @@ public class WithdrawItems extends Node {
 
     @Override
     public boolean validate() {
-        return !Inventory.isFull() && Inventory.getCount(vars.logType) < 27 && Inventory.getCount(vars.plankType) <= 0;
+        return !Inventory.isFull() && Inventory.getCount(vars.logType) <= 0 && Inventory.getCount(vars.plankType) <= 0;
     }
 
 }
