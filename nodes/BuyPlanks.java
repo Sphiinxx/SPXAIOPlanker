@@ -38,6 +38,7 @@ public class BuyPlanks extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Inventory.getCount(vars.logType) <= 0;
                     }
                 }, General.random(750, 1000));
@@ -53,12 +54,12 @@ public class BuyPlanks extends Node {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
+                            General.sleep(100);
                             return Interfaces.get(403) != null;
                         }
                     }, General.random(750, 1000));
                 }
             } else {
-                Walking.walkTo(vars.operator[0]);
                 Walking.walkTo(vars.operator[0]);
             }
         }

@@ -33,6 +33,7 @@ public class DepositItems extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Inventory.getCount(vars.plankType) <= 0;
                     }
                 }, General.random(750, 1000));
@@ -42,6 +43,7 @@ public class DepositItems extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Banking.isBankScreenOpen();
                     }
                 }, General.random(750, 1000));
@@ -54,6 +56,7 @@ public class DepositItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Banking.isInBank();
                 }
             }, General.random(750, 1000));

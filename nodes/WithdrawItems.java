@@ -38,6 +38,7 @@ public class WithdrawItems extends Node {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
+                            General.sleep(100);
                             return Inventory.getCount("Coins") == vars.coinsAmount;
                         }
                     }, General.random(750, 1000));
@@ -53,6 +54,7 @@ public class WithdrawItems extends Node {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
+                        General.sleep(100);
                         return Inventory.getCount(vars.logType) > 0;
                     }
                 }, General.random(750, 1000));
@@ -69,6 +71,7 @@ public class WithdrawItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Banking.isBankScreenOpen();
                 }
             }, General.random(750, 1000));
@@ -80,6 +83,7 @@ public class WithdrawItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
+                    General.sleep(100);
                     return Banking.isInBank();
                 }
             }, General.random(750, 1000));
