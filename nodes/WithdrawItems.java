@@ -83,8 +83,7 @@ public class WithdrawItems extends Node {
             Timing.waitCondition(new Condition() {
                 @Override
                 public boolean active() {
-                    General.sleep(100);
-                    return Banking.isInBank();
+                    General.sleep(100);return Banking.isInBank();
                 }
             }, General.random(750, 1000));
         }
