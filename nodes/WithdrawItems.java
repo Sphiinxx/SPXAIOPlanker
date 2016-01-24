@@ -39,7 +39,7 @@ public class WithdrawItems extends Node {
                         @Override
                         public boolean active() {
                             General.sleep(100);
-                            return Inventory.getCount("Coins") == vars.coinsAmount;
+                            return Inventory.getCount("Coins") >= vars.coinsAmount;
                         }
                     }, General.random(750, 1000));
                 }

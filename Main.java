@@ -21,7 +21,7 @@ import java.util.Collections;
  * Created by Sphiinx on 12/30/2015.
  */
 @ScriptManifest(authors = "Sphiinx", category = "Money making", name = "[SPX] AIO Planker", version = 0.1)
-public class Main extends Script implements Painting {
+public class Main extends Script implements Painting{
 
     private Variables variables = new Variables();
     private ArrayList<Node> nodes = new ArrayList<>();
