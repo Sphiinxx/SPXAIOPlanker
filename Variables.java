@@ -12,6 +12,7 @@ public class Variables {
     public int planksMade;
     public int currentPlankPrice;
     public int currentLogPrice;
+    public int plankPrice;
     public int plankTypeId;
     public int logTypeId;
     public double version;

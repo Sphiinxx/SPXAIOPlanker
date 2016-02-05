@@ -1,20 +1,19 @@
 package scripts.SPXAIOPlanker.nodes;
 
 import org.tribot.api.Clicking;
+import org.tribot.api.DynamicClicking;
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSInterfaceChild;
-import org.tribot.api2007.types.RSNPC;
-import scripts.SPXAIOPlanker.Constants;
 import scripts.SPXAIOPlanker.Variables;
-import scripts.SPXAIOPlanker.api.Node;
+import scripts.SPXAIOPlanker.API.Framework.Task;
 
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class BuyPlanks extends Node {
+public class BuyPlanks extends Task {
 
     private RSInterfaceChild logs;
 
@@ -50,7 +49,7 @@ public class BuyPlanks extends Node {
     public void talkToOperator() {
         if (vars.operator.length > 0) {
             if (vars.operator[0].isOnScreen()) {
-                if (Clicking.click("Buy-plank", vars.operator)) {
+                if (DynamicClicking.clickRSNPC(vars.operator[0], "Buy-plank")) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {

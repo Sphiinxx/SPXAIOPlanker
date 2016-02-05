@@ -1,16 +1,12 @@
-package scripts.SPXAIOPlanker.api;
-
+package scripts.SPXAIOPlanker.API.Framework;
 
 import scripts.SPXAIOPlanker.Variables;
 
-/**
- * Created by Sphiinx on 12/30/2015.
- */
-public abstract class Node {
+public abstract class Task {
 
     protected Variables vars;
 
-    public Node(Variables v) {
+    public Task(Variables v) {
         vars = v;
     }
 

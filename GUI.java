@@ -133,6 +133,7 @@ public class GUI extends javax.swing.JFrame {
                 variables.plankType = "Plank";
                 variables.plankTypeId = 960;
                 variables.interfaceChild = 89;
+                variables.plankPrice = 100;
                 break;
             case "Oak":
                 variables.logType = "Oak logs";
@@ -140,6 +141,7 @@ public class GUI extends javax.swing.JFrame {
                 variables.plankType = "Oak Plank";
                 variables.plankTypeId = 8778;
                 variables.interfaceChild = 90;
+                variables.plankPrice = 250;
                 break;
             case "Teak":
                 variables.logType = "Teak logs";
@@ -147,6 +149,7 @@ public class GUI extends javax.swing.JFrame {
                 variables.plankType = "Teak Plank";
                 variables.plankTypeId = 8780;
                 variables.interfaceChild = 91;
+                variables.plankPrice = 500;
                 break;
             case "Mahogany":
                 variables.logType = "Mahogany logs";
@@ -154,6 +157,7 @@ public class GUI extends javax.swing.JFrame {
                 variables.plankType = "Mahogany Plank";
                 variables.plankTypeId = 8782;
                 variables.interfaceChild = 92;
+                variables.plankPrice = 1500;
                 break;
         }
         printGuiInformation();

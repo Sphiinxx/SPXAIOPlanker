@@ -5,12 +5,12 @@ import org.tribot.api2007.NPCs;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXAIOPlanker.Constants;
 import scripts.SPXAIOPlanker.Variables;
-import scripts.SPXAIOPlanker.api.Node;
+import scripts.SPXAIOPlanker.API.Framework.Task;
 
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class WalkToSawmill extends Node {
+public class WalkToSawmill extends Task {
 
     public WalkToSawmill(Variables v) {
         super(v);

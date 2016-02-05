@@ -4,14 +4,14 @@ import org.tribot.api2007.Game;
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.Options;
 import org.tribot.api2007.Player;
+import scripts.SPXAIOPlanker.API.Framework.Task;
 import scripts.SPXAIOPlanker.Main;
 import scripts.SPXAIOPlanker.Variables;
-import scripts.SPXAIOPlanker.api.Node;
 
 /**
  * Created by Sphiinx on 12/31/2015.
  */
-public class AntiBan extends Node {
+public class AntiBan extends Task {
 
     public AntiBan(Variables v) {
         super(v);

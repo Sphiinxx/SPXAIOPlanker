@@ -10,7 +10,7 @@ import org.tribot.script.ScriptManifest;
 import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
-import scripts.SPXAIOPlanker.api.Node;
+import scripts.SPXAIOPlanker.API.Framework.Task;
 import scripts.SPXAIOPlanker.nodes.*;
 
 import java.awt.*;
@@ -24,7 +24,7 @@ import java.util.Collections;
 public class Main extends Script implements Painting{
 
     private Variables variables = new Variables();
-    private ArrayList<Node> nodes = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     public GUI gui = new GUI(variables);
     public static final ABCUtil AntiBan = new ABCUtil();
 
@@ -33,17 +33,17 @@ public class Main extends Script implements Painting{
         General.useAntiBanCompliance(true);
         initializeGui();
         getPrices();
-        Collections.addAll(nodes, new DepositItems(variables), new WithdrawItems(variables), new WalkToSawmill(variables), new BuyPlanks(variables), new AntiBan(variables));
+        Collections.addAll(tasks, new DepositItems(variables), new WithdrawItems(variables), new WalkToSawmill(variables), new BuyPlanks(variables), new AntiBan(variables));
         variables.version = getClass().getAnnotation(ScriptManifest.class).version();
         loop(20, 40);
     }
 
     private void loop(int min, int max) {
         while (!variables.stopScript) {
-            for (final Node node : nodes) {
-                if (node.validate()) {
-                    variables.status = node.toString();
-                    node.execute();
+            for (final Task task : tasks) {
+                if (task.validate()) {
+                    variables.status = task.toString();
+                    task.execute();
                     General.sleep(min, max);
                 }
             }
@@ -51,16 +51,13 @@ public class Main extends Script implements Painting{
     }
 
     public void initializeGui() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    sleep(50);
-                    variables.status = "Initializing...";
-                    gui.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                sleep(50);
+                variables.status = "Initializing...";
+                gui.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         do
@@ -78,8 +75,10 @@ public class Main extends Script implements Painting{
         g.setRenderingHints(Constants.ANTIALIASING);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            int subtractLogs = variables.currentLogPrice * variables.planksMade;
-            int profit = variables.planksMade * variables.currentPlankPrice - subtractLogs;
+            int subtractLogPrice = variables.currentLogPrice * variables.planksMade;
+            int subtractPlankPrice = variables.plankPrice * variables.planksMade;
+            int addSubtraction = subtractLogPrice + subtractPlankPrice;
+            int profit = variables.planksMade * variables.currentPlankPrice - addSubtraction;
             long profitHr = (long) (profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
             long timeRan = System.currentTimeMillis() - Constants.START_TIME;
             long planksHr = (long) (variables.planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));

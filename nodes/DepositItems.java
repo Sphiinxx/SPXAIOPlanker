@@ -7,12 +7,12 @@ import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import scripts.SPXAIOPlanker.Variables;
-import scripts.SPXAIOPlanker.api.Node;
+import scripts.SPXAIOPlanker.API.Framework.Task;
 
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class DepositItems extends Node {
+public class DepositItems extends Task {
 
     public DepositItems(Variables v) {
         super(v);
