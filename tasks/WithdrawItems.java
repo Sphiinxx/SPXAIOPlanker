@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker.nodes;
+package scripts.SPXAIOPlanker.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -6,7 +6,7 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOPlanker.Variables;
+import scripts.SPXAIOPlanker.data.Variables;
 import scripts.SPXAIOPlanker.API.Framework.Task;
 
 /**

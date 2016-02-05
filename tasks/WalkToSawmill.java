@@ -1,10 +1,10 @@
-package scripts.SPXAIOPlanker.nodes;
+package scripts.SPXAIOPlanker.tasks;
 
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.NPCs;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOPlanker.Constants;
-import scripts.SPXAIOPlanker.Variables;
+import scripts.SPXAIOPlanker.data.Constants;
+import scripts.SPXAIOPlanker.data.Variables;
 import scripts.SPXAIOPlanker.API.Framework.Task;
 
 /**

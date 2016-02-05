@@ -1,6 +1,6 @@
 package scripts.SPXAIOPlanker.API.Framework;
 
-import scripts.SPXAIOPlanker.Variables;
+import scripts.SPXAIOPlanker.data.Variables;
 
 public abstract class Task {
 

@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker.nodes;
+package scripts.SPXAIOPlanker.tasks;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.DynamicClicking;
@@ -7,7 +7,7 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSInterfaceChild;
-import scripts.SPXAIOPlanker.Variables;
+import scripts.SPXAIOPlanker.data.Variables;
 import scripts.SPXAIOPlanker.API.Framework.Task;
 
 /**

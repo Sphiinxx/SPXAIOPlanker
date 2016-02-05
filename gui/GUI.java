@@ -1,7 +1,8 @@
-package scripts.SPXAIOPlanker;
+package scripts.SPXAIOPlanker.gui;
 
 
 import org.tribot.api.General;
+import scripts.SPXAIOPlanker.data.Variables;
 
 import javax.swing.*;
 

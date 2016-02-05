@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker.nodes;
+package scripts.SPXAIOPlanker.tasks;
 
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Interfaces;
@@ -6,7 +6,7 @@ import org.tribot.api2007.Options;
 import org.tribot.api2007.Player;
 import scripts.SPXAIOPlanker.API.Framework.Task;
 import scripts.SPXAIOPlanker.Main;
-import scripts.SPXAIOPlanker.Variables;
+import scripts.SPXAIOPlanker.data.Variables;
 
 /**
  * Created by Sphiinx on 12/31/2015.

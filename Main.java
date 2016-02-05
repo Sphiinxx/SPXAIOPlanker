@@ -11,7 +11,10 @@ import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
 import scripts.SPXAIOPlanker.API.Framework.Task;
-import scripts.SPXAIOPlanker.nodes.*;
+import scripts.SPXAIOPlanker.data.Constants;
+import scripts.SPXAIOPlanker.data.Variables;
+import scripts.SPXAIOPlanker.gui.GUI;
+import scripts.SPXAIOPlanker.tasks.*;
 
 import java.awt.*;
 import java.util.ArrayList;

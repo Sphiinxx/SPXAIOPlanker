@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker;
+package scripts.SPXAIOPlanker.data;
 
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSTile;
