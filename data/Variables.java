@@ -15,13 +15,14 @@ public class Variables {
     public int plankPrice;
     public int plankTypeId;
     public int logTypeId;
+    public int profit;
     public double version;
+    public long timeRan;
     public boolean guiComplete;
     public boolean stopScript;
     public String logType;
     public String plankType;
     public String status;
     public RSNPC[] operator;
-
 }
 

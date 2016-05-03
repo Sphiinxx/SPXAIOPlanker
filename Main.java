@@ -7,6 +7,7 @@ import org.tribot.api.util.ABCUtil;
 import org.tribot.api2007.Login;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
+import org.tribot.script.interfaces.Ending;
 import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
@@ -15,6 +16,7 @@ import scripts.SPXAIOPlanker.data.Constants;
 import scripts.SPXAIOPlanker.data.Variables;
 import scripts.SPXAIOPlanker.gui.GUI;
 import scripts.SPXAIOPlanker.tasks.*;
+import scripts.SPXAIOPlanker.tasks.AntiBan;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import java.util.Collections;
  * Created by Sphiinx on 12/30/2015.
  */
 @ScriptManifest(authors = "Sphiinx", category = "Money making", name = "[SPX] AIO Planker", version = 0.1)
-public class Main extends Script implements Painting{
+public class Main extends Script implements Painting, MousePainting, MouseSplinePainting, Ending{
 
     private Variables variables = new Variables();
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -81,9 +83,9 @@ public class Main extends Script implements Painting{
             int subtractLogPrice = variables.currentLogPrice * variables.planksMade;
             int subtractPlankPrice = variables.plankPrice * variables.planksMade;
             int addSubtraction = subtractLogPrice + subtractPlankPrice;
-            int profit = variables.planksMade * variables.currentPlankPrice - addSubtraction;
-            long profitHr = (long) (profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
-            long timeRan = System.currentTimeMillis() - Constants.START_TIME;
+            variables.profit = variables.planksMade * variables.currentPlankPrice - addSubtraction;
+            long profitHr = (long) (variables.profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
+            variables.timeRan = System.currentTimeMillis() - Constants.START_TIME;
             long planksHr = (long) (variables.planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
 
             g.setColor(Constants.BLACK_COLOR);
@@ -95,7 +97,7 @@ public class Main extends Script implements Painting{
             g.setColor(Color.WHITE);
             g.drawString("[SPX] AIO Planker", 18, 239);
             g.setFont(Constants.TEXT_FONT);
-            g.drawString("Runtime: " + Timing.msToString(timeRan), 14, 260);
+            g.drawString("Runtime: " + Timing.msToString(variables.timeRan), 14, 260);
             g.drawString("Planks Made: " + variables.planksMade, 14, 276);
             g.drawString("Planks/Hr: " + planksHr, 14, 293);
             g.drawString("Profit/Hr: " + profitHr, 14, 310);
@@ -104,6 +106,32 @@ public class Main extends Script implements Painting{
         }
     }
 
+    @Override
+    public void paintMouse(Graphics g, Point point, Point point1) {
+        g.setColor(Constants.BLACK_COLOR);
+        g.drawRect(Mouse.getPos().x - 13, Mouse.getPos().y - 13, 27, 27); // Square rectangle Stroke
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 1, 500); // Top y axis Line Stroke
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 1, 500); // Bottom y axis Line Stroke
+        g.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 1); // Right x axis line Stroke
+        g.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 1); // left x axis line Stroke
+        g.fillOval(Mouse.getPos().x - 3, Mouse.getPos().y - 3, 7, 7); // Center dot stroke
+        g.setColor(Constants.RED_COLOR);
+        g.drawRect(Mouse.getPos().x - 12, Mouse.getPos().y - 12, 25, 25); // Square rectangle
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y - 512, 0, 500); // Top y axis Line
+        g.drawRect(Mouse.getPos().x, Mouse.getPos().y + 13, 0, 500); // Bottom y axis Line
+        g.drawRect(Mouse.getPos().x + 13, Mouse.getPos().y, 800, 0); // Right x axis line
+        g.drawRect(Mouse.getPos().x - 812, Mouse.getPos().y, 800, 0); // left x axis line
+        g.fillOval(Mouse.getPos().x - 2, Mouse.getPos().y - 2, 5, 5); // Center dot
+    }
+
+    @Override
+    public void paintMouseSpline(Graphics graphics, ArrayList<Point> arrayList) {
+    }
+
+    @Override
+    public void onEnd() {
+        DynamicSignature.sendSignatureData(variables.timeRan / 1000, variables.planksMade, variables.profit);
+    }
 
 }
 
