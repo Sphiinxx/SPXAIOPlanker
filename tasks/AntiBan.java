@@ -1,24 +1,17 @@
 package scripts.SPXAIOPlanker.tasks;
 
-import org.tribot.api.util.abc.ABCProperties;
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.Options;
 import org.tribot.api2007.Player;
-import scripts.SPXAIOPlanker.API.Framework.Task;
 import scripts.SPXAIOPlanker.Main;
-import scripts.SPXAIOPlanker.data.Variables;
+import scripts.SPXAIOPlanker.framework.Task;
 
 /**
  * Created by Sphiinx on 12/31/2015.
  */
-public class AntiBan extends Task {
+public class AntiBan implements Task {
 
-    public AntiBan(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
 
         Main.AntiBan.performExamineObject();
@@ -49,9 +42,6 @@ public class AntiBan extends Task {
         }
     }
 
-
-
-    @Override
     public String toString(){
         return "Performing Antiban...";
     }

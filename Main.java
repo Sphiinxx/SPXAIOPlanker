@@ -11,16 +11,16 @@ import org.tribot.script.interfaces.Ending;
 import org.tribot.script.interfaces.MousePainting;
 import org.tribot.script.interfaces.MouseSplinePainting;
 import org.tribot.script.interfaces.Painting;
-import scripts.SPXAIOPlanker.API.Framework.Task;
 import scripts.SPXAIOPlanker.data.Constants;
-import scripts.SPXAIOPlanker.data.Variables;
+import scripts.SPXAIOPlanker.data.Vars;
+import scripts.SPXAIOPlanker.framework.Task;
+import scripts.SPXAIOPlanker.framework.TaskManager;
 import scripts.SPXAIOPlanker.gui.GUI;
 import scripts.SPXAIOPlanker.tasks.*;
 import scripts.SPXAIOPlanker.tasks.AntiBan;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Sphiinx on 12/30/2015.
@@ -28,29 +28,32 @@ import java.util.Collections;
 @ScriptManifest(authors = "Sphiinx", category = "Money making", name = "[SPX] AIO Planker", version = 0.1)
 public class Main extends Script implements Painting, MousePainting, MouseSplinePainting, Ending{
 
-    private Variables variables = new Variables();
-    private ArrayList<Task> tasks = new ArrayList<>();
-    public GUI gui = new GUI(variables);
+    public GUI gui = new GUI();
     public static final ABCUtil AntiBan = new ABCUtil();
+    private TaskManager taskManager = new TaskManager();
 
     @Override
     public void run() {
+        Vars.reset();
         General.useAntiBanCompliance(true);
         initializeGui();
         getPrices();
-        Collections.addAll(tasks, new DepositItems(variables), new WithdrawItems(variables), new WalkToSawmill(variables), new BuyPlanks(variables), new AntiBan(variables));
-        variables.version = getClass().getAnnotation(ScriptManifest.class).version();
-        loop(20, 40);
+        addCollection();
+        Vars.get().version = getClass().getAnnotation(ScriptManifest.class).version();
+        loop(100, 150);
+    }
+
+    private void addCollection() {
+        taskManager.addTask(new DepositItems(), new WithdrawItems(), new WalkToSawmill(), new BuyPlanks(), new AntiBan());
     }
 
     private void loop(int min, int max) {
-        while (!variables.stopScript) {
-            for (final Task task : tasks) {
-                if (task.validate()) {
-                    variables.status = task.toString();
-                    task.execute();
-                    General.sleep(min, max);
-                }
+        while (!Vars.get().stopScript) {
+            Task task = taskManager.getValidTask();
+            if (task != null) {
+                Vars.get().status = task.toString();
+                task.execute();
+                General.sleep(min, max);
             }
         }
     }
@@ -59,7 +62,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         EventQueue.invokeLater(() -> {
             try {
                 sleep(50);
-                variables.status = "Initializing...";
+                Vars.get().status = "Initializing...";
                 gui.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -67,12 +70,12 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         });
         do
             sleep(10);
-        while (!variables.guiComplete);
+        while (!Vars.get().guiComplete);
     }
 
     public void getPrices() {
-        variables.currentPlankPrice = PriceChecker.getOSbuddyPrice(variables.plankTypeId);
-        variables.currentLogPrice = PriceChecker.getOSbuddyPrice(variables.logTypeId);
+        Vars.get().currentPlankPrice = PriceChecker.getOSbuddyPrice(Vars.get().plankTypeId);
+        Vars.get().currentLogPrice = PriceChecker.getOSbuddyPrice(Vars.get().logTypeId);
     }
 
     public void onPaint(Graphics g1) {
@@ -80,13 +83,13 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
         g.setRenderingHints(Constants.ANTIALIASING);
         if (Login.getLoginState() == Login.STATE.INGAME) {
 
-            int subtractLogPrice = variables.currentLogPrice * variables.planksMade;
-            int subtractPlankPrice = variables.plankPrice * variables.planksMade;
+            int subtractLogPrice = Vars.get().currentLogPrice * Vars.get().planksMade;
+            int subtractPlankPrice = Vars.get().plankPrice * Vars.get().planksMade;
             int addSubtraction = subtractLogPrice + subtractPlankPrice;
-            variables.profit = variables.planksMade * variables.currentPlankPrice - addSubtraction;
-            long profitHr = (long) (variables.profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
-            variables.timeRan = System.currentTimeMillis() - Constants.START_TIME;
-            long planksHr = (long) (variables.planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
+            Vars.get().profit = Vars.get().planksMade * Vars.get().currentPlankPrice - addSubtraction;
+            long profitHr = (long) (Vars.get().profit * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
+            Vars.get().timeRan = System.currentTimeMillis() - Constants.START_TIME;
+            long planksHr = (long) (Vars.get().planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
 
             g.setColor(Constants.BLACK_COLOR);
             g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
@@ -97,12 +100,12 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
             g.setColor(Color.WHITE);
             g.drawString("[SPX] AIO Planker", 18, 239);
             g.setFont(Constants.TEXT_FONT);
-            g.drawString("Runtime: " + Timing.msToString(variables.timeRan), 14, 260);
-            g.drawString("Planks Made: " + variables.planksMade, 14, 276);
+            g.drawString("Runtime: " + Timing.msToString(Vars.get().timeRan), 14, 260);
+            g.drawString("Planks Made: " + Vars.get().planksMade, 14, 276);
             g.drawString("Planks/Hr: " + planksHr, 14, 293);
             g.drawString("Profit/Hr: " + profitHr, 14, 310);
-            g.drawString("Status: " + variables.status, 14, 326);
-            g.drawString("v" + variables.version, 185, 326);
+            g.drawString("Status: " + Vars.get().status, 14, 326);
+            g.drawString("v" + Vars.get().version, 185, 326);
         }
     }
 
@@ -130,7 +133,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
 
     @Override
     public void onEnd() {
-        DynamicSignature.sendSignatureData(variables.timeRan / 1000, variables.planksMade, variables.profit);
+        DynamicSignature.sendSignatureData(Vars.get().timeRan / 1000, Vars.get().planksMade, Vars.get().profit);
     }
 
 }

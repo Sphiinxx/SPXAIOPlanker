@@ -6,20 +6,15 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOPlanker.API.Game.Banking.Banking07;
-import scripts.SPXAIOPlanker.data.Variables;
-import scripts.SPXAIOPlanker.API.Framework.Task;
+import scripts.SPXAIOPlanker.data.Vars;
+import scripts.SPXAIOPlanker.framework.Task;
+import scripts.TribotAPI.game.banking.Banking07;
 
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class WithdrawItems extends Task {
+public class WithdrawItems implements Task {
 
-    public WithdrawItems(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
         if (Banking.isInBank()) {
             if (Banking.isBankScreenOpen()) {
@@ -36,35 +31,35 @@ public class WithdrawItems extends Task {
         if (Banking07.isBankItemsLoaded()) {
             if (Inventory.getCount("Coins") <= 5000) {
                 if (Banking.find("Coins").length > 0) {
-                    if (Banking.withdraw(vars.coinsAmount, "Coins")) {
+                    if (Banking.withdraw(Vars.get().coinsAmount, "Coins")) {
                         Timing.waitCondition(new Condition() {
                             @Override
                             public boolean active() {
                                 General.sleep(100);
-                                return Inventory.getCount("Coins") >= vars.coinsAmount;
+                                return Inventory.getCount("Coins") >= Vars.get().coinsAmount;
                             }
                         }, General.random(750, 1000));
                     }
                 } else {
                     General.println("We could not find any coins.");
                     General.println("Stopping Script...");
-                    vars.stopScript = true;
+                    Vars.get().stopScript = true;
                 }
             }
-            if (Banking.find(vars.logType).length > 0) {
-                if (Banking.withdraw(27, vars.logType)) {
+            if (Banking.find(Vars.get().logType).length > 0) {
+                if (Banking.withdraw(27, Vars.get().logType)) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
                             General.sleep(100);
-                            return Inventory.getCount(vars.logType) > 0;
+                            return Inventory.getCount(Vars.get().logType) > 0;
                         }
                     }, General.random(750, 1000));
                 }
             } else {
-                General.println("We could not find any " + vars.logType);
+                General.println("We could not find any " + Vars.get().logType);
                 General.println("Stopping Script...");
-                vars.stopScript = true;
+                Vars.get().stopScript = true;
             }
         }
     }
@@ -92,14 +87,12 @@ public class WithdrawItems extends Task {
         }
     }
 
-    @Override
     public String toString(){
         return "Withdrawing items...";
     }
 
-    @Override
     public boolean validate() {
-        return !Inventory.isFull() && Inventory.getCount(vars.logType) <= 0 && Inventory.getCount(vars.plankType) <= 0;
+        return !Inventory.isFull() && Inventory.getCount(Vars.get().logType) <= 0 && Inventory.getCount(Vars.get().plankType) <= 0;
     }
 
 }

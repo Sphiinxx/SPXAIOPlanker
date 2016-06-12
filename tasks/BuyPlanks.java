@@ -7,21 +7,16 @@ import org.tribot.api.Timing;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSInterfaceChild;
-import scripts.SPXAIOPlanker.data.Variables;
-import scripts.SPXAIOPlanker.API.Framework.Task;
+import scripts.SPXAIOPlanker.data.Vars;
+import scripts.SPXAIOPlanker.framework.Task;
 
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class BuyPlanks extends Task {
+public class BuyPlanks implements Task {
 
     private RSInterfaceChild logs;
 
-    public BuyPlanks(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
         if (Interfaces.get(403) == null) {
             talkToOperator();
@@ -31,25 +26,25 @@ public class BuyPlanks extends Task {
     }
 
     public void buyPlanks() {
-        logs = Interfaces.get(403, vars.interfaceChild);
+        logs = Interfaces.get(403, Vars.get().interfaceChild);
         if (logs != null) {
             if (Clicking.click("Buy all", logs)) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
                         General.sleep(100);
-                        return Inventory.getCount(vars.logType) <= 0;
+                        return Inventory.getCount(Vars.get().logType) <= 0;
                     }
                 }, General.random(750, 1000));
-                vars.planksMade = vars.planksMade + Inventory.getCount(vars.plankType);
+                Vars.get().planksMade = Vars.get().planksMade + Inventory.getCount(Vars.get().plankType);
             }
         }
     }
 
     public void talkToOperator() {
-        if (vars.operator.length > 0) {
-            if (vars.operator[0].isOnScreen()) {
-                if (DynamicClicking.clickRSNPC(vars.operator[0], "Buy-plank")) {
+        if (Vars.get().operator.length > 0) {
+            if (Vars.get().operator[0].isOnScreen()) {
+                if (DynamicClicking.clickRSNPC(Vars.get().operator[0], "Buy-plank")) {
                     Timing.waitCondition(new Condition() {
                         @Override
                         public boolean active() {
@@ -59,20 +54,18 @@ public class BuyPlanks extends Task {
                     }, General.random(750, 1000));
                 }
             } else {
-                Walking.walkTo(vars.operator[0]);
+                Walking.walkTo(Vars.get().operator[0]);
             }
         }
     }
 
-    @Override
     public String toString(){
         return "Buying Planks...";
     }
 
-    @Override
     public boolean validate() {
-        vars.operator = NPCs.find("Sawmill operator");
-        return vars.operator.length > 0 && Inventory.getCount(vars.logType) > 0  && Inventory.getCount(vars.plankType) <= 0  && Inventory.getCount("Coins") >= 5000;
+        Vars.get().operator = NPCs.find("Sawmill operator");
+        return Vars.get().operator.length > 0 && Inventory.getCount(Vars.get().logType) > 0  && Inventory.getCount(Vars.get().plankType) <= 0  && Inventory.getCount("Coins") >= 5000;
     }
 
 }

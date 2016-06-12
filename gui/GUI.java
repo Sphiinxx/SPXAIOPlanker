@@ -2,7 +2,7 @@ package scripts.SPXAIOPlanker.gui;
 
 
 import org.tribot.api.General;
-import scripts.SPXAIOPlanker.data.Variables;
+import scripts.SPXAIOPlanker.data.Vars;
 
 import javax.swing.*;
 
@@ -11,10 +11,7 @@ import javax.swing.*;
  */
 public class GUI extends javax.swing.JFrame {
 
-    private Variables variables;
-
-    public GUI(Variables variables) {
-        this.variables = variables;
+    public GUI() {
         initComponents();
     }
 
@@ -121,48 +118,48 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void printGuiInformation() {
-        General.println("Plank type: " + variables.plankType);
-        General.println("Coins amount: " + variables.coinsAmount);
+        General.println("Plank type: " + Vars.get().plankType);
+        General.println("Coins amount: " + Vars.get().coinsAmount);
     }
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {
-        variables.coinsAmount = Integer.parseInt(coinAmount.getValue().toString());
+        Vars.get().coinsAmount = Integer.parseInt(coinAmount.getValue().toString());
         switch(plankType.getSelectedItem().toString()) {
             case "Wood":
-                variables.logType = "Logs";
-                variables.logTypeId = 1511;
-                variables.plankType = "Plank";
-                variables.plankTypeId = 960;
-                variables.interfaceChild = 89;
-                variables.plankPrice = 100;
+                Vars.get().logType = "Logs";
+                Vars.get().logTypeId = 1511;
+                Vars.get().plankType = "Plank";
+                Vars.get().plankTypeId = 960;
+                Vars.get().interfaceChild = 89;
+                Vars.get().plankPrice = 100;
                 break;
             case "Oak":
-                variables.logType = "Oak logs";
-                variables.logTypeId = 1521;
-                variables.plankType = "Oak Plank";
-                variables.plankTypeId = 8778;
-                variables.interfaceChild = 90;
-                variables.plankPrice = 250;
+                Vars.get().logType = "Oak logs";
+                Vars.get().logTypeId = 1521;
+                Vars.get().plankType = "Oak Plank";
+                Vars.get().plankTypeId = 8778;
+                Vars.get().interfaceChild = 90;
+                Vars.get().plankPrice = 250;
                 break;
             case "Teak":
-                variables.logType = "Teak logs";
-                variables.logTypeId = 6333;
-                variables.plankType = "Teak Plank";
-                variables.plankTypeId = 8780;
-                variables.interfaceChild = 91;
-                variables.plankPrice = 500;
+                Vars.get().logType = "Teak logs";
+                Vars.get().logTypeId = 6333;
+                Vars.get().plankType = "Teak Plank";
+                Vars.get().plankTypeId = 8780;
+                Vars.get().interfaceChild = 91;
+                Vars.get().plankPrice = 500;
                 break;
             case "Mahogany":
-                variables.logType = "Mahogany logs";
-                variables.logTypeId = 6332;
-                variables.plankType = "Mahogany Plank";
-                variables.plankTypeId = 8782;
-                variables.interfaceChild = 92;
-                variables.plankPrice = 1500;
+                Vars.get().logType = "Mahogany logs";
+                Vars.get().logTypeId = 6332;
+                Vars.get().plankType = "Mahogany Plank";
+                Vars.get().plankTypeId = 8782;
+                Vars.get().interfaceChild = 92;
+                Vars.get().plankPrice = 1500;
                 break;
         }
         printGuiInformation();
-        variables.guiComplete = true;
+        Vars.get().guiComplete = true;
         setVisible(false);
     }
 

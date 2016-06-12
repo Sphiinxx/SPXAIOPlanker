@@ -6,19 +6,14 @@ import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOPlanker.data.Variables;
-import scripts.SPXAIOPlanker.API.Framework.Task;
+import scripts.SPXAIOPlanker.data.Vars;
+import scripts.SPXAIOPlanker.framework.Task;
 
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class DepositItems extends Task {
+public class DepositItems implements Task {
 
-    public DepositItems(Variables v) {
-        super(v);
-    }
-
-    @Override
     public void execute() {
         if (Banking.isInBank()) {
             openBank();
@@ -29,12 +24,12 @@ public class DepositItems extends Task {
 
     private void openBank() {
         if (Banking.isBankScreenOpen()) {
-            if (Banking.deposit(0, vars.plankType)) {
+            if (Banking.deposit(0, Vars.get().plankType)) {
                 Timing.waitCondition(new Condition() {
                     @Override
                     public boolean active() {
                         General.sleep(100);
-                        return Inventory.getCount(vars.plankType) <= 0;
+                        return Inventory.getCount(Vars.get().plankType) <= 0;
                     }
                 }, General.random(750, 1000));
             }
@@ -63,14 +58,12 @@ public class DepositItems extends Task {
         }
     }
 
-    @Override
     public String toString(){
         return "Depositing Items...";
     }
 
-    @Override
     public boolean validate() {
-        return Inventory.getCount(vars.plankType) > 0;
+        return Inventory.getCount(Vars.get().plankType) > 0;
     }
 
 }

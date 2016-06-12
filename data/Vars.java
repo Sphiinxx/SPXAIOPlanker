@@ -5,7 +5,17 @@ import org.tribot.api2007.types.RSNPC;
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-public class Variables {
+public class Vars {
+
+    public static Vars vars;
+
+    public static Vars get() {
+        return vars == null ? vars = new Vars() : vars;
+    }
+
+    public static void reset() {
+        vars = null;
+    }
 
     public int interfaceChild;
     public int coinsAmount;
