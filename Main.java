@@ -92,7 +92,7 @@ public class Main extends Script implements Painting, MousePainting, MouseSpline
             long planksHr = (long) (Vars.get().planksMade * 3600000D / (System.currentTimeMillis() - Constants.START_TIME));
 
             g.setColor(Constants.BLACK_COLOR);
-            g.fillRoundRect(11, 220, 200, 110, 8, 8); // Paint background
+            g.fillRoundRect(11, 220, 200, 110, 8, 8); // SPXMouse07 background
             g.setColor(Constants.RED_COLOR);
             g.drawRoundRect(9, 218, 202, 112, 8, 8); // Red outline
             g.fillRoundRect(13, 223, 194, 22, 8, 8); // Title background
