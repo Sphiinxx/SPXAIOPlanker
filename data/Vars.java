@@ -1,6 +1,6 @@
 package scripts.SPXAIOPlanker.data;
 
-import org.tribot.api2007.types.RSNPC;
+import scripts.SPXAIOPlanker.data.enums.PlankType;
 
 /**
  * Created by Sphiinx on 12/30/2015.
@@ -17,22 +17,13 @@ public class Vars {
         vars = null;
     }
 
-    public int interfaceChild;
-    public int coinsAmount;
-    public int planksMade;
-    public int currentPlankPrice;
-    public int currentLogPrice;
-    public int plankPrice;
-    public int plankTypeId;
-    public int logTypeId;
+    public int coins_to_take;
+    public int planks_made;
     public int profit;
-    public double version;
-    public long timeRan;
-    public boolean guiComplete;
-    public boolean stopScript;
-    public String logType;
-    public String plankType;
-    public String status;
-    public RSNPC[] operator;
+    public int plank_price;
+    public int log_price;
+
+    public PlankType plank_type;
+
 }
 

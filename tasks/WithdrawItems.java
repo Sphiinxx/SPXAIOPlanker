@@ -1,98 +1,68 @@
 package scripts.SPXAIOPlanker.tasks;
 
 import org.tribot.api.General;
-import org.tribot.api.Timing;
-import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
+import org.tribot.api2007.types.RSItem;
 import scripts.SPXAIOPlanker.data.Vars;
-import scripts.SPXAIOPlanker.framework.Task;
+import scripts.TaskFramework.framework.Task;
+import scripts.TaskFramework.framework.TaskManager;
 import scripts.TribotAPI.game.banking.Banking07;
+import scripts.TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.util.Logging;
 
 /**
- * Created by Sphiinx on 12/30/2015.
+ * Created by Sphiinx on 7/28/2016.
  */
 public class WithdrawItems implements Task {
 
+    private int item_id;
+    private int amount_to_withdraw;
+
+    @Override
+    public boolean validate() {
+        if (Inventory.isFull())
+            return false;
+
+        if (Inventory.getCount("Coins") < 2700) {
+            item_id = 995;
+            amount_to_withdraw = Vars.get().coins_to_take;
+            return true;
+        }
+
+        if (Inventory.getCount(Vars.get().plank_type.getLogID()) <= 0) {
+            item_id = Vars.get().plank_type.getLogID();
+            amount_to_withdraw = 27;
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public void execute() {
-        if (Banking.isInBank()) {
-            if (Banking.isBankScreenOpen()) {
-                withdrawItems();
+        if (Banking07.isBankItemsLoaded()) {
+            final RSItem item_to_withdraw = Banking07.findItem(item_id);
+            if (item_to_withdraw != null) {
+                if (Banking07.withdrawItem(amount_to_withdraw, item_to_withdraw.getID()))
+                    Timing07.waitCondition(() -> Inventory.getCount(item_id) >= amount_to_withdraw, General.random(2500, 3000));
             } else {
-                openBank();
+                Logging.warning("We're out of resources.");
+                TaskManager.stopProgram(true);
             }
         } else {
-            walkToBank();
+            if (!Banking07.isInBank())
+                WebWalking.walkToBank();
+
+            if (Banking.openBank())
+                Timing07.waitCondition(Banking07::isBankItemsLoaded, General.random(1500, 2000));
         }
     }
 
-    public void withdrawItems() {
-        if (Banking07.isBankItemsLoaded()) {
-            if (Inventory.getCount("Coins") <= 5000) {
-                if (Banking.find("Coins").length > 0) {
-                    if (Banking.withdraw(Vars.get().coinsAmount, "Coins")) {
-                        Timing.waitCondition(new Condition() {
-                            @Override
-                            public boolean active() {
-                                General.sleep(100);
-                                return Inventory.getCount("Coins") >= Vars.get().coinsAmount;
-                            }
-                        }, General.random(750, 1000));
-                    }
-                } else {
-                    General.println("We could not find any coins.");
-                    General.println("Stopping Script...");
-                    Vars.get().stopScript = true;
-                }
-            }
-            if (Banking.find(Vars.get().logType).length > 0) {
-                if (Banking.withdraw(27, Vars.get().logType)) {
-                    Timing.waitCondition(new Condition() {
-                        @Override
-                        public boolean active() {
-                            General.sleep(100);
-                            return Inventory.getCount(Vars.get().logType) > 0;
-                        }
-                    }, General.random(750, 1000));
-                }
-            } else {
-                General.println("We could not find any " + Vars.get().logType);
-                General.println("Stopping Script...");
-                Vars.get().stopScript = true;
-            }
-        }
-    }
-
-    public void openBank() {
-        if (Banking.openBank()) {
-            Timing.waitCondition(new Condition() {
-                @Override
-                public boolean active() {
-                    General.sleep(100);
-                    return Banking.isBankScreenOpen();
-                }
-            }, General.random(750, 1000));
-        }
-    }
-
-    private void walkToBank() {
-        if (WebWalking.walkToBank()) {
-            Timing.waitCondition(new Condition() {
-                @Override
-                public boolean active() {
-                    General.sleep(100);return Banking.isInBank();
-                }
-            }, General.random(750, 1000));
-        }
-    }
-
-    public String toString(){
-        return "Withdrawing items...";
-    }
-
-    public boolean validate() {
-        return !Inventory.isFull() && Inventory.getCount(Vars.get().logType) <= 0 && Inventory.getCount(Vars.get().plankType) <= 0;
+    @Override
+    public String toString() {
+        return "Withdrawing items";
     }
 
 }
