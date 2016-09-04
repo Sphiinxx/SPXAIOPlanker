@@ -1,15 +1,15 @@
-package scripts.SPXAIOPlanker.tasks;
+package scripts.spxaioplanker.tasks;
 
 import org.tribot.api.General;
 import org.tribot.api2007.Banking;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
-import scripts.SPXAIOPlanker.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TaskFramework.framework.TaskManager;
-import scripts.TribotAPI.game.banking.Banking07;
-import scripts.TribotAPI.game.timing.Timing07;
-import scripts.TribotAPI.util.Logging;
+import scripts.spxaioplanker.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.task_framework.framework.TaskManager;
+import scripts.tribotapi.game.banking.Banking07;
+import scripts.tribotapi.game.timing.Timing07;
+import scripts.tribotapi.util.Logging;
 
 /**
  * Created by Sphiinx on 7/28/2016.

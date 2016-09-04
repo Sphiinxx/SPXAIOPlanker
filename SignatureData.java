@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker;
+package scripts.spxaioplanker;
 
 import org.tribot.api.General;
 

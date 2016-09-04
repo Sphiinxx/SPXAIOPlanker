@@ -1,13 +1,13 @@
-package scripts.SPXAIOPlanker.tasks;
+package scripts.spxaioplanker.tasks;
 
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSTile;
-import scripts.SPXAIOPlanker.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.npcs.NPCs07;
+import scripts.spxaioplanker.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.npcs.NPCs07;
 
 /**
  * Created by Sphiinx on 7/28/2016.

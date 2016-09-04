@@ -1,6 +1,6 @@
-package scripts.SPXAIOPlanker.data;
+package scripts.spxaioplanker.data;
 
-import scripts.SPXAIOPlanker.data.enums.PlankType;
+import scripts.spxaioplanker.data.enums.PlankType;
 
 /**
  * Created by Sphiinx on 12/30/2015.

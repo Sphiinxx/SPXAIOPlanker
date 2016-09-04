@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker.tasks;
+package scripts.spxaioplanker.tasks;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -6,10 +6,10 @@ import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSNPC;
-import scripts.SPXAIOPlanker.data.Vars;
-import scripts.TaskFramework.framework.Task;
-import scripts.TribotAPI.game.npcs.NPCs07;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.spxaioplanker.data.Vars;
+import scripts.task_framework.framework.Task;
+import scripts.tribotapi.game.npcs.NPCs07;
+import scripts.tribotapi.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 7/28/2016.

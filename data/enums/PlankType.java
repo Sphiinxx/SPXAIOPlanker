@@ -1,4 +1,4 @@
-package scripts.SPXAIOPlanker.data.enums;
+package scripts.spxaioplanker.data.enums;
 
 /**
  * Created by Sphiinx on 7/28/2016.
