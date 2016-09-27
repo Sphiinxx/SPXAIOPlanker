@@ -23,7 +23,7 @@ import java.net.URL;
 /**
  * Created by Sphiinx on 12/30/2015.
  */
-@ScriptManifest(authors = "Sphiinx", category = "Money making", name = "[SPX] AIO Planker", version = 1.2)
+@ScriptManifest(authors = "Sphiinx", category = "Money making", name = "[SPX] AIO Planker", version = 1.3)
 @DoNotRename
 public class Main extends AbstractScript implements Painting, EventBlockingOverride, Ending {
 
