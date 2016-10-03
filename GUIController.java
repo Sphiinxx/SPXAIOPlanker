@@ -7,10 +7,10 @@ import com.allatori.annotations.DoNotRename;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.tribot.api.Timing;
+import scripts.generalapi.PostRequest;
 import scripts.spxaioplanker.data.Vars;
 import scripts.spxaioplanker.data.enums.PlankType;
 import scripts.tribotapi.Client;
-import scripts.tribotapi.PostRequest;
 import scripts.tribotapi.gui.AbstractGUIController;
 import scripts.tribotapi.util.Utility;
 
