@@ -17,7 +17,7 @@ public class Vars {
         vars = null;
     }
 
-    public double coins_to_take;
+    public int coins_to_take;
 
     public int planks_made;
     public int profit;

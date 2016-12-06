@@ -38,7 +38,7 @@ public class GUIController extends AbstractGUIController {
 
     @FXML
     @DoNotRename
-    private Spinner<Double> coins_to_take;
+    private Spinner<Integer> coins_to_take;
 
     @FXML
     @DoNotRename
@@ -113,7 +113,7 @@ public class GUIController extends AbstractGUIController {
         });
 
         start.setOnAction((event) -> {
-            Vars.get().coins_to_take = Double.parseDouble(coins_to_take.getValue().toString());
+            Vars.get().coins_to_take = coins_to_take.getValue();
             Vars.get().plank_type = plank_type.getSelectionModel().getSelectedItem();
             getGUI().close();
         });

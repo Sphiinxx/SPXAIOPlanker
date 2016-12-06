@@ -27,7 +27,7 @@ public class WithdrawItems implements Task {
 
         if (Inventory.getCount("Coins") < 2700) {
             item_id = 995;
-            amount_to_withdraw = (int) Vars.get().coins_to_take;
+            amount_to_withdraw = Vars.get().coins_to_take;
             return true;
         }
 
